@@ -1,0 +1,84 @@
+package br.exercicio.junit5;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+class TestesExercicio {
+	
+	public static List<Integer> lista = new ArrayList<Integer>();
+	
+	// Teste 1
+	@Test
+	@DisplayName("Teste da Lista Vazia")
+	void teste1() {
+		Assertions.assertTrue(lista.isEmpty());
+	}
+	
+	// Teste 2
+	@Test
+	@DisplayName("Teste da Lista com Elementos")
+	void teste2() {
+		lista = new ArrayList();
+		lista.add(1);
+		Assertions.assertFalse(lista.isEmpty());
+	}
+	
+	// Teste 3
+	@Test
+	@DisplayName("Tamanho da Lista e Elementos da Lista")
+	void teste3() {
+		lista = new ArrayList();
+		lista.add(1);
+		lista.add(2);
+		lista.add(3);
+		Assertions.assertEquals(3, lista.size());
+		Assertions.assertEquals(1, lista.get(0));
+		Assertions.assertEquals(2, lista.get(1));
+		Assertions.assertEquals(3, lista.get(2));
+	}
+	
+	// Teste 4
+	@Test
+	@DisplayName("Removendo Elemento da Lista")
+	void teste4() {
+		lista = new ArrayList();
+		lista.add(1);
+		lista.add(2);
+		lista.add(3);
+		Assertions.assertEquals(3, lista.remove(2));
+		Assertions.assertEquals(1, lista.get(0));
+		Assertions.assertEquals(2, lista.get(1));
+	}
+	
+	// Teste 5
+	@Test
+	@DisplayName("Testando Tamanho da Lista e se está Vazia ou não")
+	void teste5() {
+		lista = new ArrayList();
+		lista.add(1);
+		lista.remove(0);
+		Assertions.assertEquals(0, lista.size());
+		Assertions.assertTrue(lista.isEmpty());
+	}
+	
+	// Teste 6
+	@Test
+	@DisplayName("Testando Tratamento de Exceções")
+	void teste6() {
+		try {
+			lista = new ArrayList();
+			lista.add(1);
+			lista.add(2);
+			lista.remove(2);
+		} catch (IndexOutOfBoundsException e){
+			Assertions.assertThrows(IndexOutOfBoundsException.class, () -> lista.remove(2));
+		}
+	}
+}
